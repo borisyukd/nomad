@@ -27,7 +27,7 @@ RUN set -x && \
     gosu nobody true && \
     apk del .gosu-deps
 
-ENV NOMAD_VERSION 0.7.0
+ENV NOMAD_VERSION 0.7.1
 
 RUN set -x \
   && apk --update add --no-cache --virtual .nomad-deps gnupg curl \
@@ -47,6 +47,8 @@ RUN set -x \
 RUN mkdir -p /nomad/data && \
     mkdir -p /etc/nomad && \
     chown -R nomad:nomad /nomad
+
+RUN apk --update add ca-certificates && rm -rf /var/cache/apk/*
 
 EXPOSE 4646 4647 4648 4648/udp
 
